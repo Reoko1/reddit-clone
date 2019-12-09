@@ -103,6 +103,29 @@ const createPost = data => {
   };
 };
 
+const updatePost = data => {
+  const errors = {};
+
+  data.title = data.title
+    ? validString(data.title)
+      ? data.title
+      : ""
+    : undefined;
+  data.text = data.text ? (validString(data.text) ? data.text : "") : undefined;
+
+  if (data.title && !validator.isLength(data.title, { min: 2, max: 300 })) {
+    errors.title = "Title must be between 2 and 300 characters";
+  }
+  if (data.text && !validator.isLength(data.text, { max: 40000 })) {
+    errors.text = "Text must be less than 40.000 characters";
+  }
+
+  return {
+    valid: Object.keys(errors).length === 0,
+    errors
+  };
+};
+
 const createComment = data => {
   const errors = {};
 
@@ -121,12 +144,29 @@ const createComment = data => {
   };
 };
 
+const updateComment = data => {
+  const errors = {};
+
+  data.text = data.text ? (validString(data.text) ? data.text : "") : undefined;
+
+  if (data.text && !validator.isLength(data.text, { min: 2, max: 10000 })) {
+    errors.text = "Text must be between 2 and 10.000 characters";
+  }
+
+  return {
+    valid: Object.keys(errors).length === 0,
+    errors
+  };
+};
+
 const schemas = {
   register,
   login,
   createCommunity,
   createPost,
-  createComment
+  updatePost,
+  createComment,
+  updateComment
 };
 
 const check = (schema, prop) => (req, res, next) => {

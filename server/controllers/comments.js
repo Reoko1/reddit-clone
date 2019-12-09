@@ -84,8 +84,29 @@ const downvote = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  const { comment_id } = req.params;
+  const { text } = req.body;
+  try {
+    const commentArray = await database("comments")
+      .select()
+      .where({ id: comment_id });
+    const comment = commentArray[0];
+    if (!comment) {
+      return res.status(404).send({ msg: "Comment not found" });
+    }
+    const updatedComment = await database("comments")
+      .update({ text }, "*")
+      .where({ id: comment_id });
+    res.send(updatedComment);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
   create,
   upvote,
-  downvote
+  downvote,
+  update
 };

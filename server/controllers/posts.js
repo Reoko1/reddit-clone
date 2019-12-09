@@ -81,8 +81,30 @@ const downvote = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  const { post_id } = req.params;
+  const { title, text } = req.body;
+  try {
+    const postArray = await database("posts")
+      .select()
+      .where({ id: post_id });
+    const post = postArray[0];
+    if (!post) {
+      return res.status(404).send({ msg: "Post not found" });
+    }
+    if (post.user_id !== req.user.id) {
+      return res.status(400).send({ msg: "Not allowed" });
+    }
+    const updatedPost = await database("posts").update({ title, text }, "*");
+    res.send(updatedPost);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
   create,
   upvote,
-  downvote
+  downvote,
+  update
 };

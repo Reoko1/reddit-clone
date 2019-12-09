@@ -10,5 +10,11 @@ router
   .post(protect, check(schemas.createComment, "body"), comments.create);
 router.post("/upvote/:comment_id", protect, comments.upvote);
 router.post("/downvote/:comment_id", protect, comments.downvote);
+router.patch(
+  "/update/:comment_id",
+  protect,
+  check(schemas.updateComment, "body"),
+  comments.update
+);
 
 module.exports = router;
