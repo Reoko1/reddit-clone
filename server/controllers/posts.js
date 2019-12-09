@@ -102,9 +102,34 @@ const update = async (req, res) => {
   }
 };
 
+const getByCommunity = async (req, res) => {
+  const { community_id } = req.params;
+  try {
+    const posts = await database("posts")
+      .select()
+      .where({ community_id });
+    res.send(posts);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getByUser = async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const posts = await database("posts")
+      .select()
+      .where({ user_id });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
   create,
   upvote,
   downvote,
-  update
+  update,
+  getByCommunity,
+  getByUser
 };

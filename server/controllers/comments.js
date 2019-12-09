@@ -104,9 +104,35 @@ const update = async (req, res) => {
   }
 };
 
+const getByPost = async (req, res) => {
+  const { post_id } = req.params;
+  try {
+    const comments = await database("comments")
+      .select()
+      .where({ post_id });
+    res.send(comments);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getByUser = async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const comments = await database("comments")
+      .select()
+      .where({ user_id });
+    res.send(comments);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
   create,
   upvote,
   downvote,
-  update
+  update,
+  getByPost,
+  getByUser
 };

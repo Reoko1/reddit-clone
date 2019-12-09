@@ -16,5 +16,6 @@ router.patch(
   check(schemas.updateComment, "body"),
   comments.update
 );
+router.get("/post/:post_id", comments.getByPost);
 
 module.exports = router;

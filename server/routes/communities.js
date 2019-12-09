@@ -7,6 +7,8 @@ const router = Router();
 
 router
   .route("/")
+  .get(communities.getAll)
   .post(protect, check(schemas.createCommunity, "body"), communities.create);
+router.get("/:name", communities.getByName);
 
 module.exports = router;

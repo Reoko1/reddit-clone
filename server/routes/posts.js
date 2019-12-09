@@ -14,5 +14,7 @@ router.patch(
   check(schemas.updatePost, "body"),
   posts.update
 );
+router.get("/community/:community_id", posts.getByCommunity);
+router.get("/user/:user_id", posts.getByUser);
 
 module.exports = router;

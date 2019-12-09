@@ -23,6 +23,29 @@ const create = async (req, res) => {
   }
 };
 
+const getAll = async (_, res) => {
+  try {
+    const communities = await database("communities").select();
+    res.send(communities);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const getByName = async (req, res) => {
+  const { name } = req.params;
+  try {
+    const communities = await database("communities")
+      .select()
+      .where("name", "ilike", `%${name}%`);
+    res.send(communities);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
-  create
+  create,
+  getAll,
+  getByName
 };
