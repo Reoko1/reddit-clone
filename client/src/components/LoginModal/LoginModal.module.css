@@ -1,0 +1,8 @@
+.login__modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__modal > *:not(:last-child) {
+  margin-bottom: 1em;
+}
