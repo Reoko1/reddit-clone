@@ -106,8 +106,18 @@ const getByCommunity = async (req, res) => {
   const { community_id } = req.params;
   try {
     const posts = await database("posts")
-      .select()
-      .where({ community_id });
+      .select(
+        "posts.id",
+        "users.name as user",
+        "communities.name as community",
+        "posts.title",
+        "posts.text",
+        "posts.created_at",
+        "posts.updated_at"
+      )
+      .where({ community_id })
+      .leftJoin("users", "posts.user_id", "users.id")
+      .leftJoin("communities", "posts.community_id", "communities.id");
     res.send(posts);
   } catch (e) {
     console.error(e);
@@ -118,8 +128,19 @@ const getByUser = async (req, res) => {
   const { user_id } = req.params;
   try {
     const posts = await database("posts")
-      .select()
-      .where({ user_id });
+      .select(
+        "posts.id",
+        "users.name as user",
+        "communities.name as community",
+        "posts.title",
+        "posts.text",
+        "posts.created_at",
+        "posts.updated_at"
+      )
+      .where({ user_id })
+      .leftJoin("users", "posts.user_id", "users.id")
+      .leftJoin("communities", "posts.community_id", "communities.id");
+    res.send(posts);
   } catch (e) {
     console.error(e);
   }

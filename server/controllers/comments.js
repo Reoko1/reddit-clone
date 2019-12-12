@@ -108,8 +108,15 @@ const getByPost = async (req, res) => {
   const { post_id } = req.params;
   try {
     const comments = await database("comments")
-      .select()
-      .where({ post_id });
+      .select(
+        "comments.id",
+        "users.name as user",
+        "comments.text",
+        "comments.created_at",
+        "comments.updated_at"
+      )
+      .where({ post_id })
+      .leftJoin("users", "comments.user_id", "users.id");
     res.send(comments);
   } catch (e) {
     console.error(e);
@@ -120,8 +127,15 @@ const getByUser = async (req, res) => {
   const { user_id } = req.params;
   try {
     const comments = await database("comments")
-      .select()
-      .where({ user_id });
+      .select(
+        "comments.id",
+        "users.name as user",
+        "comments.text",
+        "comments.created_at",
+        "comments.updated_at"
+      )
+      .where({ user_id })
+      .leftJoin("users", "comments.user_id", "users.id");
     res.send(comments);
   } catch (e) {
     console.error(e);
