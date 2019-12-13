@@ -1,6 +1,7 @@
 .register__modal {
   display: flex;
   flex-direction: column;
+  width: 15em;
 }
 
 .register__modal > *:not(:last-child) {

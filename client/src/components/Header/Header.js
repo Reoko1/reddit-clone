@@ -18,8 +18,8 @@ export const Header = ({
         <FaRedditSquare className={styles.header__logo} />
       </Link>
       <div className={styles.header__right}>
-        <Button label="Sign Up" onClick={toggleRegister} />
-        <Button label="Log In" onClick={toggleLogin} />
+        <Button type="text" label="Sign Up" onClick={toggleRegister} />
+        <Button type="text" label="Log In" onClick={toggleLogin} />
         <LoginModal open={loginOpen} toggleOpen={toggleLogin} />
         <RegisterModal open={registerOpen} toggleOpen={toggleRegister} />
       </div>

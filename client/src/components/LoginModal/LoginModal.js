@@ -13,7 +13,7 @@ export const LoginModal = ({ open, toggleOpen }) => {
 
   return (
     <Modal open={open} toggleOpen={toggleOpen}>
-      <div className={styles.login__modal}>
+      <form className={styles.login__modal}>
         <FormInput
           label="Name"
           type="text"
@@ -26,8 +26,8 @@ export const LoginModal = ({ open, toggleOpen }) => {
           onChange={update(setPassword)}
           value={password}
         />
-        <Button label="Log In" />
-      </div>
+        <Button type="submit" label="Log In" />
+      </form>
     </Modal>
   );
 };
